@@ -1,0 +1,91 @@
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
+    <div class="container-fluid">
+        <li class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <?php if (isset($_SESSION['user'])) { ?>
+                <li>
+                    <a href="?manage">
+                        <button class="btn btn-success">Manage <span class="badge"><?php echo $_SESSION['user']->
+                            username; ?></span></button>
+                    </a>
+                </li>
+                <li>
+                    <a href="?signout">
+                        <button class="btn btn-info">Sign <span class="badge">out</span></button>
+                    </a>
+                </li>
+                <?php } else { ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <button class="btn btn-primary">Sign <span class="badge">up</span></button>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <form class="form-account" method="post" id="register" action="api.php">
+                            <li>
+                                <input type="text" placeholder="Username" class="form-control" name="username" required
+                                       autofocus>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <input type="password" placeholder="Password" class="form-control" name="password"
+                                       id="password" required>
+                            </li>
+                            <li>
+                                <input type="password" placeholder="Confirm Password" class="form-control"
+                                       id="passwordconfirm">
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" name="signup">Sign up
+                                </button>
+                            </li>
+                        </form>
+                        <script type="text/javascript">
+                            $('form#register').on('submit', function () {
+                                if ($('#password').val() !== $('#passwordconfirm').val()) {
+                                    alert('Password does not match it\'s confirmation!');
+                                    return false;
+                                }
+                                return true;
+                            });
+                        </script>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <button class="btn btn-success">Sign <span class="badge">in</span></button>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <form class="form-account" method="post" action="api.php">
+                            <li>
+                                <input type="text" placeholder="Username" class="form-control" name="username" required
+                                       autofocus>
+                            </li>
+                            <li>
+                                <input type="password" placeholder="Password" class="form-control" name="password"
+                                       required>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" name="signin">Sign in
+                                </button>
+                            </li>
+                        </form>
+                    </ul>
+                </li>
+                <?php } ?>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="info-widget"></ul>
+        </div>
+    </div>
+</nav>
+
+<?php if (isset($_SESSION['message'])) { ?>
+<div class="alert alert-<?php echo $_SESSION['message'][0];?> alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <?php echo $_SESSION['message'][1]; ?>
+</div>
+<?php unset($_SESSION['message']); } ?>

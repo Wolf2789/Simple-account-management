@@ -1,0 +1,8 @@
+<form class="form-account" method="post" id="register" action="api.php">
+    <input type="email" placeholder="Email" class="form-control" name="email" required autofocus value="<?php echo $_SESSION['user']['email'];?>">
+    <input type="text" placeholder="First Name" class="form-control" name="first_name" value="<?php echo $_SESSION['user']['first_name'];?>">
+    <input type="text" placeholder="Last Name" class="form-control" name="last_name" value="<?php echo $_SESSION['user']['last_name'];?>">
+    <input type="password" placeholder="New Password" class="form-control" name="newpassword">
+    <input type="password" placeholder="Actual Password" class="form-control" name="password" required>
+    <button type="submit" class="btn btn-lg btn-primary btn-block" name="update">Update account</button>
+</form>
